@@ -11,17 +11,18 @@ class TestFolSemantics(object):
 
     def test_syntactic_parsing(self):
         well_formed_expressions = [
-            '(-(Axa & (Rx ^ Rx)) ^ Caz)'
+            '(-(Axa & (Rx ^ Rx)) ^ Caz)',
             '($x(Px) & Tx)',
             '$x((Px & Tx))',
-            '(-(Axa & (Rx ^ Rx)) > Caz)'
+            'Pa',
+            'Abx'
         ]
 
         # assert all these are wff
         assert all([grammar.parse_expression_with_grammar(e) for e in well_formed_expressions])
 
         not_well_formed_expressions = [
-            '(-(Axsa & (Rx ^ Rx)) ^ Caz)'
+            '(-(Axsa & (Rx ^ Rx)) ^ Caz)',
             '($x(Pxa) & Tx)',
             '(Px & Tx) ^ Py',
             'aC'
