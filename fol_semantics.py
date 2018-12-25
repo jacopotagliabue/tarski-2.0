@@ -1,9 +1,74 @@
-from datetime import datetime
+from random import choice
 
 
-def main():
-    print("All done at {}, see you, space cowboys".format(datetime.utcnow()))
+class FolSemantics:
 
+    def __init__(self, grammar):
+        self.grammar = grammar
+        return
 
-if __name__ == "__main__":
-    main()
+    def create_appropriate_assignment(self, domain, free_variables):
+        return {free_v: choice(domain) for free_v in free_variables}
+
+    def create_modified_assignment(self, original_assignment, modification):
+        new_assignment = original_assignment.copy()
+        for var, denotation in modification.items():
+            new_assignment[var] = denotation
+
+        return new_assignment
+
+    def check_atomic_formula(self, model, assignment, predicate, args):
+        current_denotation = [assignment[v] if self.grammar.is_variable(v) else model['constants'][v] for v in args]
+        return current_denotation in model['extensions'].get(str(predicate), [])
+
+    def check_formula_satisfaction_by_assignment(self, formula, model, assignment):
+        # it's an atom
+        if formula.data in ['unary', 'binary']:
+            # get arguments for the predicate as an array to match the extensions in the model specs
+            args = formula.children[1:]
+            return self.check_atomic_formula(model, assignment, formula.children[0], args)
+        # it's an AND
+        elif formula.data == 'and':
+            return self.check_formula_satisfaction_by_assignment(formula.children[0], model,assignment) \
+                   and self.check_formula_satisfaction_by_assignment(formula.children[1], model, assignment)
+        # it's an OR
+        elif formula.data == 'or':
+            return self.check_formula_satisfaction_by_assignment(formula.children[0], model, assignment) \
+                   or self.check_formula_satisfaction_by_assignment(formula.children[1], model, assignment)
+        # it's a negation
+        elif formula.data == 'neg':
+            return not (self.check_formula_satisfaction_by_assignment(formula.children[0], model, assignment))
+        # it's an ex quantifier
+        elif formula.data == 'q_ex':
+            # first child is variable bounded
+            bounded_variable = formula.children[0]
+            return any([self.check_formula_satisfaction_by_assignment(formula.children[1],
+                                                                      model,
+                                                                      self.create_modified_assignment(
+                                                                          assignment,
+                                                                          {bounded_variable: d}))
+                        for d in model['domain']
+                        ])
+        # it's a universal quantifier
+        elif formula.data == 'q_un':
+            # first child is variable bounded
+            bounded_variable = formula.children[0]
+            return all([self.check_formula_satisfaction_by_assignment(formula.children[1],
+                                                                      model,
+                                                                      self.create_modified_assignment(
+                                                                          assignment,
+                                                                          {bounded_variable: d}))
+                        for d in model['domain']
+                        ])
+        else:
+            raise Exception("Operation not defined!")
+
+    def check_formula_satisfaction_in_model(self, expression, model, verbose=False):
+        # get the first children as in the Lark grammar the first node is "start"
+        formula = self.grammar.parse_expression_with_grammar(expression).children[0]
+        free_vars = self.grammar.get_free_variables_from_formula_recursively(formula)
+        assignment = self.create_appropriate_assignment(model['domain'], free_vars)
+        if verbose:
+            print(formula.pretty(), free_vars, assignment)
+
+        return self.check_formula_satisfaction_by_assignment(formula, model, assignment)

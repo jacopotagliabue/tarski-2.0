@@ -56,6 +56,39 @@ class FolGrammar:
 
         return None
 
+    def get_free_variables_from_formula_recursively(self, formula, free_variables=[], bound_variables=[]):
+        """
+            Recursively traverse the formula tree and retrieve variables which are free, i.e. variables
+            not in the scope of a quantifier.
+
+        :param formula: parsed tree from Lark (possibly sub-tree)
+        :param free_variables: list of free variables encountered in parsing
+        :param bound_variables: list of bound variables encountered in parsing
+
+        :return: list of all variables (unique values only) that are free in the formula
+        """
+        # if it is a quantifier node, mark the variable as bound and go on
+        if formula.data in ['q_ex', 'q_un']:
+            # first child is variable bounded
+            bound_variables.append(formula.children[0])
+            self.get_free_variables_from_formula_recursively(formula.children[1], free_variables, bound_variables)
+        # if it is a terminal, check that variables are not bound/already included in the list
+        elif formula.data in ['unary', 'binary']:
+            args = formula.children[1:]
+            for a in args:
+                if self.is_variable(a) and a not in bound_variables and a not in free_variables:
+                    free_variables.append(str(a))
+        # if anything else, just continue the examination in all children path
+        else:
+            for f in formula.children:
+                self.get_free_variables_from_formula_recursively(f, free_variables, bound_variables)
+
+        return free_variables
+
+    """
+        Some utility functions below
+    """
+
     def get_lark_grammar(self):
         return self.LARK_FOL_GRAMMAR
 
@@ -64,4 +97,5 @@ class FolGrammar:
 
     def is_name(self, x):
         return x in self.FOL_NAMES
+
 
