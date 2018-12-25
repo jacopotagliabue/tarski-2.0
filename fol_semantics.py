@@ -8,6 +8,13 @@ class FolSemantics:
         return
 
     def create_appropriate_assignment(self, domain, free_variables):
+        """
+        Create an "appropriate" assignment, that is a denotation for each free var
+
+        :param domain: domain of a model object (array)
+        :param free_variables: list of free vars
+        :return: mapping variables->domain
+        """
         return {free_v: choice(domain) for free_v in free_variables}
 
     def create_modified_assignment(self, original_assignment, modification):
@@ -24,7 +31,7 @@ class FolSemantics:
         :param assignment: mapping variables->domain
         :param predicate: predicate in the formula
         :param args: list of args, len(args) should be == arity of the predicate. Args can be variables or constants
-        :return:
+        :return: boolean
         """
         # get args denotation through assignment if variable, through model if constant
         current_denotation = [assignment[v] if self.grammar.is_variable(v) else model['constants'][v] for v in args]
@@ -37,7 +44,7 @@ class FolSemantics:
         :param formula: a lark (sub) tree
         :param model: a dictionary containing constants and extensions for predicates
         :param assignment: mapping variables->domain
-        :return:
+        :return: boolean
         """
         # it's an atom
         if formula.data in ['unary', 'binary']:
