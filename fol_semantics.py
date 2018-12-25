@@ -66,7 +66,7 @@ class FolSemantics:
     def check_formula_satisfaction_in_model(self, expression, model, verbose=False):
         # get the first children as in the Lark grammar the first node is "start"
         formula = self.grammar.parse_expression_with_grammar(expression).children[0]
-        free_vars = self.grammar.get_free_variables_from_formula_recursively(formula)
+        free_vars = self.grammar.get_free_variables_from_formula_recursively(formula, [], [])
         assignment = self.create_appropriate_assignment(model['domain'], free_vars)
         if verbose:
             print(formula.pretty(), free_vars, assignment)

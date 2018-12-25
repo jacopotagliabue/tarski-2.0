@@ -56,7 +56,7 @@ class FolGrammar:
 
         return None
 
-    def get_free_variables_from_formula_recursively(self, formula, free_variables=[], bound_variables=[]):
+    def get_free_variables_from_formula_recursively(self, formula, free_variables, bound_variables):
         """
             Recursively traverse the formula tree and retrieve variables which are free, i.e. variables
             not in the scope of a quantifier.

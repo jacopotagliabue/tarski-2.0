@@ -8,7 +8,7 @@ semantics = FolSemantics(grammar)
 
 
 def main():
-    print(semantics.check_formula_satisfaction_in_model("Pa", FOL_TEST_WORLD))
+    print(semantics.check_formula_satisfaction_in_model('Pa', FOL_TEST_WORLD))
     print("All done at {}, see you, space cowboys".format(datetime.utcnow()))
 
 
