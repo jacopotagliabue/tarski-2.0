@@ -18,10 +18,27 @@ class FolSemantics:
         return new_assignment
 
     def check_atomic_formula(self, model, assignment, predicate, args):
+        """
+
+        :param model: a dictionary containing constants and extensions for predicates
+        :param assignment: mapping variables->domain
+        :param predicate: predicate in the formula
+        :param args: list of args, len(args) should be == arity of the predicate. Args can be variables or constants
+        :return:
+        """
+        # get args denotation through assignment if variable, through model if constant
         current_denotation = [assignment[v] if self.grammar.is_variable(v) else model['constants'][v] for v in args]
+        # check if denotation is in the predicate extension
         return current_denotation in model['extensions'].get(str(predicate), [])
 
     def check_formula_satisfaction_by_assignment(self, formula, model, assignment):
+        """
+
+        :param formula: a lark (sub) tree
+        :param model: a dictionary containing constants and extensions for predicates
+        :param assignment: mapping variables->domain
+        :return:
+        """
         # it's an atom
         if formula.data in ['unary', 'binary']:
             # get arguments for the predicate as an array to match the extensions in the model specs
