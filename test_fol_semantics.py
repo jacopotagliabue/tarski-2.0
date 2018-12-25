@@ -47,6 +47,27 @@ class TestFolSemantics(object):
         domain = FOL_TEST_WORLD['domain']
         assert all([len(semantics.create_appropriate_assignment(domain, f).keys()) == len(f) for f in free_variables])
 
+    def test_modified_assignments(self):
+        domain = FOL_TEST_WORLD['domain']
+        free_variables = [
+            (['x'], {'y': 1}),
+            (['z'], {'z': 2}),
+            (['x', 'y'], {'y': 4}),
+            ([], {'z': 3}),
+            (['x', 'y', 'z'], {'y': 2, 'x': 4})
+        ]
+        for fv in free_variables:
+            original_assignment = semantics.create_appropriate_assignment(domain, fv[0])
+            modified_assignment = semantics.create_modified_assignment(original_assignment, fv[1])
+            # assert modified assignment has new values
+            for v, d in fv[1].items():
+                assert modified_assignment[v] == d
+            # assert modified assignment agrees with old on other vars
+            for v, d in modified_assignment.items():
+                if v not in fv[1]:
+                    assert original_assignment[v] == d
+
+
     def test_free_variables(self):
         free_variables_formulas = [
             ('Pa', []),
