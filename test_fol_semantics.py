@@ -67,7 +67,6 @@ class TestFolSemantics(object):
                 if v not in fv[1]:
                     assert original_assignment[v] == d
 
-
     def test_free_variables(self):
         free_variables_formulas = [
             ('Pa', []),
@@ -85,3 +84,16 @@ class TestFolSemantics(object):
             free_vars = grammar.get_free_variables_from_formula_recursively(formula, [],  [])
             # make sure order is not relevant in comparison
             assert sorted(free_vars) == sorted(ff[1])
+
+    def test_atomic_satisfaction(self):
+        atomic_formulas = [
+            ({
+                 'model': FOL_TEST_WORLD,
+                 'assignment': {},
+                 'predicate': 'P',
+                 'args': ['a']
+             }, True),
+        ]
+
+        # assert all atomic formulas are (not) satisfied as expected
+        assert all([semantics.check_atomic_formula(**a[0]) == a[1] for a in atomic_formulas])
