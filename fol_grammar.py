@@ -29,7 +29,7 @@ class FolGrammar:
 
     def __init__(self):
         """
-            Fill the general FOL schema with the actual names, variables, predicates available
+        Fill the general FOL schema with the actual names, variables, predicates available
         """
         names = '|'.join(['"{}"'.format(n) for n in self.FOL_NAMES])
         variables = '|'.join(['"{}"'.format(v) for v in self.FOL_VARIABLES])
@@ -43,8 +43,8 @@ class FolGrammar:
 
     def parse_expression_with_grammar(self, expression):
         """
-            Parse a given expression (a string) to a parse tree according to the grammar, returning None
-            if it fails to do so
+        Parse a given expression (a string) to a parse tree according to the grammar, returning None
+        if it fails to do so
 
         :return: Lark parse tree or None if expression cannot be parsed
         """
@@ -58,8 +58,8 @@ class FolGrammar:
 
     def get_free_variables_from_formula_recursively(self, formula, free_variables, bound_variables):
         """
-            Recursively traverse the formula tree and retrieve variables which are free, i.e. variables
-            not in the scope of a quantifier.
+        Recursively traverse the formula tree and retrieve variables which are free, i.e. variables
+        not in the scope of a quantifier.
 
         :param formula: parsed tree from Lark (possibly sub-tree)
         :param free_variables: list of free variables encountered in parsing
@@ -86,7 +86,7 @@ class FolGrammar:
         return free_variables
 
     """
-        Some utility functions below
+    Some utility functions below
     """
 
     def get_lark_grammar(self):

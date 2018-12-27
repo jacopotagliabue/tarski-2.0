@@ -18,6 +18,13 @@ class FolSemantics:
         return {free_v: choice(domain) for free_v in free_variables}
 
     def create_modified_assignment(self, original_assignment, modification):
+        """
+        Create a new assignment based on old assignment and required modifications
+
+        :param original_assignment: mapping variables->domain
+        :param modification: mapping variables->domain
+        :return: a mapping which is = to the original except for what specified in modification
+        """
         new_assignment = original_assignment.copy()
         for var, denotation in modification.items():
             new_assignment[var] = denotation
@@ -26,6 +33,7 @@ class FolSemantics:
 
     def check_atomic_formula(self, model, assignment, predicate, args):
         """
+        Check the satisfaction of atomic formulas, given a model and an assignment
 
         :param model: a dictionary containing constants and extensions for predicates
         :param assignment: mapping variables->domain
@@ -88,6 +96,14 @@ class FolSemantics:
             raise Exception("Operation not defined!")
 
     def check_formula_satisfaction_in_model(self, expression, model, verbose=False):
+        """
+        Given a model and a formula, check if it is satisfied in the model
+
+        :param expression: string containing the fol formula
+        :param model: a dictionary containing constants and extensions for predicates
+        :param verbose: flag, True for verbose logging
+        :return: boolean
+        """
         # get the first children as in the Lark grammar the first node is "start"
         formula = self.grammar.parse_expression_with_grammar(expression).children[0]
         free_vars = self.grammar.get_free_variables_from_formula_recursively(formula, [], [])

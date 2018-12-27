@@ -13,6 +13,9 @@ semantics = FolSemantics(grammar)
 class TestFolSemantics(object):
 
     def test_syntactic_parsing(self):
+        """
+        Test if lark grammar recognizes wff
+        """
         well_formed_expressions = [
             '(-(Axa & (Rx ^ Rx)) ^ Caz)',
             '($x(Px) & Tx)',
@@ -35,6 +38,9 @@ class TestFolSemantics(object):
         assert not(any([grammar.parse_expression_with_grammar(e) for e in not_well_formed_expressions]))
 
     def test_appropriate_assignments(self):
+        """
+        Test if service generate assignment which are appropriate for the free variables
+        """
         free_variables = [
             ['x'],
             ['z'],
@@ -48,6 +54,9 @@ class TestFolSemantics(object):
         assert all([len(semantics.create_appropriate_assignment(domain, f).keys()) == len(f) for f in free_variables])
 
     def test_modified_assignments(self):
+        """
+        Test a modified assignment g of f is equals to f in all respect except for the variable of interest
+        """
         domain = FOL_TEST_WORLD['domain']
         free_variables = [
             (['x'], {'y': 1}),
@@ -68,6 +77,9 @@ class TestFolSemantics(object):
                     assert original_assignment[v] == d
 
     def test_free_variables(self):
+        """
+        Test if service can recognize which variables are free in a formula
+        """
         free_variables_formulas = [
             ('Pa', []),
             ('Px', ['x']),
@@ -86,6 +98,9 @@ class TestFolSemantics(object):
             assert sorted(free_vars) == sorted(ff[1])
 
     def test_atomic_satisfaction(self):
+        """
+        Test satisfaction of atomic formulas with test world
+        """
         atomic_formulas = [
             ({
                  'model': FOL_TEST_WORLD,
