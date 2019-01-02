@@ -113,6 +113,26 @@ class TestFolSemantics(object):
         # assert all atomic formulas are (not) satisfied as expected
         assert all([semantics.check_atomic_formula(**a[0]) == a[1] for a in atomic_formulas])
 
+    def test_sample_world_satisfaction(self):
+        """
+        Test satisfaction of sentences with test world
+        """
+        sample_sentences = [
+            ('Pa', True),
+            ('Rc', False),
+            ('(Rb&Pb)', False),
+            ('(Rb^Pa)', True),
+            ('Cab', True),
+            ('Cba', False),
+            ('$x(Px)', True),
+            ('-$x(Sx)', True),
+            ('@x(Qx)', True),
+        ]
+
+        # assert all sample formulas are (not) satisfied as expected
+        assert all([semantics.check_formula_satisfaction_in_model(a[0], FOL_TEST_WORLD) == a[1]
+                    for a in sample_sentences])
+
     def test_medium_example(self):
         """
         Test all examples from the Medium post - see README
