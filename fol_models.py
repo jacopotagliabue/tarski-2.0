@@ -13,3 +13,19 @@ FOL_TEST_WORLD = {
         "D": [[2, 3]]
     }
 }
+
+# see readme for link to original blog post
+FOL_MEDIUM_WORLD = {
+    'domain': [1, 2, 3, 4, 5],
+    'constants': {
+        'j': 1,  # 'Jacopo'
+        'm': 2,  # 'Mattia'
+        'r': 3,  # 'Ryan'
+        'c': 4,  # 'Ciro'
+    },
+    'extensions': {
+        "I": [[1], [2], [4]],  # 'IsItalian'
+        "P": [[5]],  # 'IsAmerican'
+        "Q": [[3]]  # 'IsCanadian'
+    }
+}

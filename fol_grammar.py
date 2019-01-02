@@ -3,9 +3,9 @@ from lark import Lark
 
 class FolGrammar:
 
-    FOL_NAMES = ['a', 'b', 'c', 'd', 'e']
+    FOL_NAMES = ['a', 'b', 'c', 'd', 'e', 'j', 'm', 'r']
     FOL_VARIABLES = ['x', 'y', 'w', 'z']
-    FOL_UNARY = ['P', 'Q', 'R', 'S', 'T', 'U']
+    FOL_UNARY = ['I', 'P', 'Q', 'R', 'S', 'T', 'U']
     FOL_BINARY = ['A', 'B', 'C', 'D', 'E', 'F']
 
     LARK_FOL_GRAMMAR_SCHEMA = '''

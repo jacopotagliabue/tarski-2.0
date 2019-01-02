@@ -3,7 +3,7 @@
 """
 from fol_grammar import FolGrammar
 from fol_semantics import FolSemantics
-from fol_models import FOL_TEST_WORLD
+from fol_models import FOL_TEST_WORLD, FOL_MEDIUM_WORLD
 
 
 grammar = FolGrammar()
@@ -112,3 +112,19 @@ class TestFolSemantics(object):
 
         # assert all atomic formulas are (not) satisfied as expected
         assert all([semantics.check_atomic_formula(**a[0]) == a[1] for a in atomic_formulas])
+
+    def test_medium_example(self):
+        """
+        Test all examples from the Medium post - see README
+        """
+        medium_examples = [
+            ('Ij', True),  # Jacopo IsItalian
+            ('Qj', False),  # Jacopo IsCanadian
+            ('(Ij&Pm)', False),  # Jacopo IsItalian and Mattia IsAmerican
+            ('-Ij', False),  # not Jacopo IsItalian
+
+        ]
+
+        # assert all sample formulas are (not) satisfied as expected
+        assert all([semantics.check_formula_satisfaction_in_model(a[0], FOL_MEDIUM_WORLD) == a[1]
+                    for a in medium_examples])
