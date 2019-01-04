@@ -29,9 +29,8 @@ Tests built with [pytest](https://docs.pytest.org/). Use
 to run some basic tests (or something like `VIRTUAL_ENV/python -m pytest test_fol_semantics.py` from a virtualenv).
 
 ## References
-Satisfaction in a model with partial assignments follows closely the exposition of:
+Satisfaction in a model with partial assignments follows closely the exposition of [Language, Proof, Logic](https://www.google.com/search?q=language+proof+logic+ama&rlz=1C5CHFA_enUS783US783&oq=language+proof+logic+ama&aqs=chrome..69i57j69i60j69i65j69i61j69i60l2.3180j0j7&sourceid=chrome&ie=UTF-8)
+(by David Barker-Plummer, Jon Barwise and John Etchemendy), which is also an heavily recommended book to learn first-order logic. Please see the blog post for more references.
 
-[Language, Proof, Logic](https://www.google.com/search?q=language+proof+logic+ama&rlz=1C5CHFA_enUS783US783&oq=language+proof+logic+ama&aqs=chrome..69i57j69i60j69i65j69i61j69i60l2.3180j0j7&sourceid=chrome&ie=UTF-8) ,
-by David Barker-Plummer, Jon Barwise and John Etchemendy
-
-which is also an heavily recommended book to learn first-order logic. Please see the blog post for more references.
+## License
+All the code in this repo is provided "AS IS" and it is freely available under the [Apache License Version 2.0](https://www.apache.org/licenses/LICENSE-2.0).
