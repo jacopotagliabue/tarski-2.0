@@ -19,7 +19,9 @@ quickly build an FOL parser). Then you can run:
 ```python fol_main.py```
 
 specifying in the `main` which formula and which model you would like to use. Please see the grammar specs in `fol_grammar.py` to get 
-a sense of the symbols supported by the implementation.
+a sense of the symbols supported by the implementation. 
+
+The `notebook` folder contains a sketch for a pandas-based semantics (see the blog post for details).
 
 
 ## Tests
