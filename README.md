@@ -32,7 +32,7 @@ Tests built with [pytest](https://docs.pytest.org/). Use
 to run some basic tests (or something like `VIRTUAL_ENV/python -m pytest test_fol_semantics.py` from a virtualenv).
 
 ## References
-Satisfaction in a model with partial assignments follows closely the exposition of [Language, Proof, Logic](https://www.google.com/search?q=language+proof+logic+ama&rlz=1C5CHFA_enUS783US783&oq=language+proof+logic+ama&aqs=chrome..69i57j69i60j69i65j69i61j69i60l2.3180j0j7&sourceid=chrome&ie=UTF-8)
+Satisfaction in a model with partial assignments follows closely the exposition of [Language, Proof, Logic](https://www.amazon.com/Language-Proof-Logic-David-Barker-Plummer/dp/1575866323)
 (by David Barker-Plummer, Jon Barwise and John Etchemendy), which is also an heavily recommended book to learn first-order logic. A good book on
 computational semantics is [Representation and Inference for Natural Language](https://www.press.uchicago.edu/ucp/books/book/distributed/R/bo3685980.html) 
 (by Johan Bos and Patrick Blackburn), which contains a detailed discussion on how to build a "model checker" in Prolog
